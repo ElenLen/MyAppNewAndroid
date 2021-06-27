@@ -13,11 +13,11 @@ public class DisplayMessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_message);
 
         // Получите намерение, с которого началось это действие, и извлеките строку
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+      //  Intent intent = getIntent();
+     //   String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         // Захватите текстовое представление макета и установите строку в качестве его текста
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(message);
+     //   TextView textView = findViewById(R.id.textView);
+     //   textView.setText(message);
     }
 }
