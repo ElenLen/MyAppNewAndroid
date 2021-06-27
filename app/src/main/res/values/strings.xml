@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My AppNew</string>
+    <string name="edit_message">Введите сообщение</string>
+    <string name="button_send">Поиск</string>
+</resources>
