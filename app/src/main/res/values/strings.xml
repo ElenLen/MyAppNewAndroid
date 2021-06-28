@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Планер</string>
-    <string name="button_send">Поиск</string>
-    <string name="button_cal">Календарь</string>
     <string name="activity_week">Неделя</string>
     <string name="activity_cal">Календарь</string>
     <string name="activity_trek">Трекер привычек</string>
