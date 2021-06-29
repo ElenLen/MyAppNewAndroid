@@ -1,16 +1,16 @@
 package com.example.myappnew;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
 
-public class DisplayMessageActivity extends AppCompatActivity {
+import android.os.Bundle;
+import android.widget.TableLayout;
+
+public class Activity_week extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_week);
 
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myappnew" >
+    package="com.example.myappnew">
 
     <application
         android:allowBackup="true"
@@ -8,15 +8,34 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyAppNew" >
-        <activity android:name=".DisplayMessageActivity"
+        android:theme="@style/Theme.MyAppNew">
+
+        <activity android:name=".Activity_trek"
             android:parentActivityName=".MainActivity">
-            <!-- Тег метаданных необходим, если вы поддерживаете API уровня 15 и ниже -->
+            <!-- Переход назад в меню -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MainActivity" >
+
+        <activity android:name=".Activity_week"
+            android:parentActivityName=".MainActivity">
+            <!-- Переход назад в меню -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".Activity_calendar"
+            android:parentActivityName=".MainActivity">
+            <!-- Переход назад в меню -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

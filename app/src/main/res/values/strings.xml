@@ -3,4 +3,11 @@
     <string name="activity_week">Неделя</string>
     <string name="activity_cal">Календарь</string>
     <string name="activity_trek">Трекер привычек</string>
+    <string name="column1">ПН</string>
+    <string name="column4">ЧТ</string>
+    <string name="column5">ВТ</string>
+    <string name="column8">ПТ</string>
+    <string name="column9">СР</string>
+    <string name="column12">СБ</string>
+    <string name="column13">ВС</string>
 </resources>
