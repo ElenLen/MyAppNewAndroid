@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Year>> call, Throwable t) {
                 Log.d(getClass().toString(), t.getMessage());
+                Log.d(getClass().toString(),"ERROR!");
             }
         });
     }
