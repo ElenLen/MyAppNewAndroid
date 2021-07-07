@@ -1,474 +1,1 @@
-package com.example.myappnew;
-
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
-import com.example.myappnew.retrofit2.Delete_Del;
-import com.example.myappnew.retrofit2.GetDelRes;
-import com.example.myappnew.retrofit2.GetListRes;
-import com.example.myappnew.retrofit2.GetSinUser;
-import com.example.myappnew.retrofit2.GetSingleRes;
-import com.example.myappnew.retrofit2.GetUser;
-import com.example.myappnew.retrofit2.Get_DelayedRes;
-import com.example.myappnew.retrofit2.Get_ListRes;
-import com.example.myappnew.retrofit2.Get_ListUse;
-import com.example.myappnew.retrofit2.Get_SingleRes;
-import com.example.myappnew.retrofit2.Get_SingleUse;
-import com.example.myappnew.retrofit2.Patch_Update;
-import com.example.myappnew.retrofit2.PostCreate;
-import com.example.myappnew.retrofit2.PostLoginSuc;
-import com.example.myappnew.retrofit2.PostRegSuc;
-import com.example.myappnew.retrofit2.Post_Create;
-import com.example.myappnew.retrofit2.Post_LoginSuc;
-import com.example.myappnew.retrofit2.Post_RegSuc;
-import com.example.myappnew.retrofit2.PutUpdate;
-import com.example.myappnew.retrofit2.Put_Update;
-import com.example.myappnew.retrofit2.RegSuc;
-import com.google.gson.Gson;
-
-import java.time.Year;
-import java.util.List;
-
-import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initRetrofit();
-        reqresRetrofit();
-    }
-    //Неделя
-    public void sendWeek(View view) {
-        Intent intent = new Intent(this, Activity_week.class);
-        startActivity(intent);
-    }
-
-    //Календарь
-    public void sendCalendar(View view) {
-        Intent intent = new Intent(this, Activity_calendar.class);
-        startActivity(intent);
-    }
-
-    //Трекер
-    public void sendTrek(View view) {
-        Intent intent = new Intent(this, Activity_trek.class);
-        startActivity(intent);
-    }
-
-    /* Ретрофит1 - использ в проекте
-    * API - календарь празников
-    */
-    private void initRetrofit() {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new IntEx())
-                .build();
-
-        Retrofit retrofit = (new Retrofit.Builder())
-                /* Базовая часть адреса */
-                .baseUrl("https://date.nager.at/")
-                /* Конвертер, необходимый для преобразования JSON'а в объекты */
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .client(client)
-                .build();
-
-        RetrofitService service = retrofit.create(RetrofitService.class);
-
-        service.usersYear(2021).enqueue(new Callback<List<Year>>() {
-            /*проверяем на null данные, которые пришли */
-            @Override
-            public void onResponse(Call<List<Year>> call, Response<List<Year>> response) {
-                response.body();
-                Log.d(getClass().toString(),"RetrofitService - very good!");
-            }
-
-            /*если произошла ошибка*/
-            @Override
-            public void onFailure(Call<List<Year>> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"RetrofitService - ERROR!");
-            }
-        });
-    }
-
-
-
-    /******************************************
-    * Ретрофит2 - для теста
-    * https://reqres.in/
-    */
-    private void reqresRetrofit() {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new IntEx())
-                .build();
-
-        Retrofit retrofit_req = (new Retrofit.Builder())
-                /* Базовая часть адреса */
-                .baseUrl("https://reqres.in/api/")
-                /* Конвертер, необходимый для преобразования JSON'а в объекты */
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .client(client)
-                .build();
-
-        /*****************
-        ****Get_ListUse***
-        *  LIST USERS - Response 200
-        * */
-        Get_ListUse service1 = retrofit_req.create(Get_ListUse.class);
-        service1.getUser(2).enqueue(new Callback<GetUser>() {
-            @Override
-            public void onResponse(Call<GetUser> call, Response<GetUser> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Get_ListUse - Response 200 *******");
-                }
-                else {
-                Log.d(getClass().toString(),"Get_ListUse - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<GetUser> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Get_ListUse - ERROR!");
-            }
-        });
-
-
-        /*******************
-         *** Get_SingleUse ***
-         * SINGLE USER - Response 200
-         * */
-        Get_SingleUse service2 = retrofit_req.create(Get_SingleUse.class);
-        service2.getSinUser(2).enqueue(new Callback<GetSinUser>() {
-            @Override
-            public void onResponse(Call<GetSinUser> call, Response<GetSinUser> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Get_SingleUse - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Get_SingleUse - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<GetSinUser> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Get_SingleUse - ERROR!");
-            }
-        });
-
-         /********************************
-          * *** Get_SingleUse_NotFound ***
-         * SINGLE USER NOT FOUND - Response 404
-         * */
-        service2.getSinUser(23).enqueue(new Callback<GetSinUser>() {
-            @Override
-            public void onResponse(Call<GetSinUser> call, Response<GetSinUser> response) {
-                response.body();
-                if (response.code() == 404) {
-                    Log.d(getClass().toString(),"******* Get_SingleUse_NotFound - Response 404 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Get_SingleUse_NotFound - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<GetSinUser> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Get_SingleUse_NotFound - ERROR!");
-            }
-        });
-
-
-        /******************
-        *** Get_ListRes ***
-        * LIST <RESOURCE> - Response 200
-        * */
-        Get_ListRes service3 = retrofit_req.create(Get_ListRes.class);
-        service3.getListRes().enqueue(new Callback<GetListRes>() {
-            @Override
-            public void onResponse(Call<GetListRes> call, Response<GetListRes> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Get_ListRes - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Get_ListRes - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<GetListRes> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Get_ListRes - ERROR!");
-            }
-        });
-
-
-        /*********************
-         *** Get_SingleRes ***
-         * SINGLE <RESOURCE> - Response 200
-         * */
-        Get_SingleRes service4 = retrofit_req.create(Get_SingleRes.class);
-        service4.getSingleRes(2).enqueue(new Callback<GetSingleRes>() {
-            @Override
-            public void onResponse(Call<GetSingleRes> call, Response<GetSingleRes> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Get_SingleRes - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Get_SingleRes - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<GetSingleRes> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Get_SingleRes - ERROR!");
-            }
-        });
-
-        /*** Get_SingleRes_NotFound***
-        * SINGLE <RESOURCE> NOT FOUND - Response 404
-        * */
-        service4.getSingleRes(23).enqueue(new Callback<GetSingleRes>() {
-            @Override
-            public void onResponse(Call<GetSingleRes> call, Response<GetSingleRes> response) {
-                response.body();
-                if (response.code() == 404) {
-                    Log.d(getClass().toString(),"******* Get_SingleRes_NotFound - Response 404 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Get_SingleRes_NotFound - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<GetSingleRes> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Get_SingleRes_NotFound - ERROR!");
-            }
-        });
-
-
-        /*********************
-        *** Get_DelayedRes ***
-         * DELAYED RESPONSE - Response 200
-         * */
-        Get_DelayedRes service5 = retrofit_req.create(Get_DelayedRes.class);
-        service5.getDelRes(3).enqueue(new Callback<GetDelRes>() {
-            @Override
-            public void onResponse(Call<GetDelRes> call, Response<GetDelRes> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Get_DelayedRes - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Get_DelayedRes - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<GetDelRes> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Get_DelayedRes - ERROR!");
-            }
-        });
-
-
-        /****************
-        *** Post_Create ***
-        * CREATE - Response 201
-        * */
-        Post_Create service6 = retrofit_req.create(Post_Create.class);
-        service6.postCreate(new PostCreate("morpheus", "leader")).enqueue(new Callback<PostCreate>() {
-            @Override
-            public void onResponse(Call<PostCreate> call, Response<PostCreate> response) {
-                response.body();
-                if (response.code() == 201) {
-                    Log.d(getClass().toString(),"******* Post_Create - Response 201 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Post_Create - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PostCreate> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Post_Create - ERROR!");
-            }
-        });
-
-        /*************
-         *** Post_RegSuc ***
-        * REGISTER - SUCCESSFUL - Response 200
-        */
-        Post_RegSuc service7 = retrofit_req.create(Post_RegSuc.class);
-        service7.postRegSuc(new RegSuc("eve.holt@reqres.in", "pistol")).enqueue(new Callback<PostRegSuc>() {
-            @Override
-            public void onResponse(Call<PostRegSuc> call, Response<PostRegSuc> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Post_RegSuc - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Post_RegSuc - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PostRegSuc> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Post_RegSuc - ERROR!");
-            }
-        });
-
-        /*** Post_RegUnSuc ***
-        * REGISTER - UNSUCCESSFUL - Response 400
-        * */
-        service7.postRegSuc(new RegSuc("sydney@fife", null)).enqueue(new Callback<PostRegSuc>() {
-            @Override
-            public void onResponse(Call<PostRegSuc> call, Response<PostRegSuc> response) {
-                response.body();
-                if (response.code() == 400) {
-                    Log.d(getClass().toString(),"******* Post_RegUnSuc - Response 400 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Post_RegUnSuc - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PostRegSuc> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Post_RegUnSuc - ERROR!");
-            }
-        });
-
-
-        /*******************
-         *** Post_LoginSuc ***
-        * LOGIN - SUCCESSFUL - Response 200
-        * */
-        Post_LoginSuc service8 = retrofit_req.create(Post_LoginSuc.class);
-        service8.postLoginSuc(new RegSuc("eve.holt@reqres.in", "cityslicka")).enqueue(new Callback<PostLoginSuc>() {
-            @Override
-            public void onResponse(Call<PostLoginSuc> call, Response<PostLoginSuc> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Post_LoginSuc - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Post_LoginSuc - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PostLoginSuc> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Post_LoginSuc - ERROR!");
-            }
-        });
-
-        /*** Post_LoginUnSuc ***
-        * LOGIN - UNSUCCESSFUL - Response 400
-        * */
-        service8.postLoginSuc(new RegSuc("peter@klaven", null)).enqueue(new Callback<PostLoginSuc>() {
-            @Override
-            public void onResponse(Call<PostLoginSuc> call, Response<PostLoginSuc> response) {
-                response.body();
-                if (response.code() == 400) {
-                    Log.d(getClass().toString(),"******* Post_LoginUnSuc - Response 400 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Post_LoginUnSuc - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PostLoginSuc> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Post_LoginUnSuc - ERROR!");
-            }
-        });
-
-
-        /*********************
-         *** Put_Update ***
-        * UPDATE - Response 200
-        * */
-        Put_Update service9 = retrofit_req.create(Put_Update.class);
-        service9.putUpdate(2, new PostCreate("morpheus", "zion resident")).enqueue(new Callback<PutUpdate>() {
-            @Override
-            public void onResponse(Call<PutUpdate> call, Response<PutUpdate> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Put_Update - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Put_Update - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PutUpdate> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Put_Update - ERROR!");
-            }
-        });
-
-
-        /*******************
-         *** Patch_Update ***
-         * UPDATE - Response 200
-         */
-        Patch_Update service10 = retrofit_req.create(Patch_Update.class);
-        service10.patchUpdate(2, new PostCreate("morpheus", "zion resident")).enqueue(new Callback<PutUpdate>() {
-            @Override
-            public void onResponse(Call<PutUpdate> call, Response<PutUpdate> response) {
-                response.body();
-                if (response.code() == 200) {
-                    Log.d(getClass().toString(),"******* Patch_Update - Response 200 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Patch_Update - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PutUpdate> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Patch_Update - ERROR!");
-            }
-        });
-
-        /*********************
-         *** Delete_Del ***
-        * DELETE - Response 204
-        * */
-        Delete_Del service11 = retrofit_req.create(Delete_Del.class);
-        service11.deleteDel(2).enqueue(new Callback<PostCreate>() {
-            @Override
-            public void onResponse(Call<PostCreate> call, Response<PostCreate> response) {
-                response.body();
-                if (response.code() == 204) {
-                    Log.d(getClass().toString(),"******* Delete_Del - Response 204 *******");
-                }
-                else {
-                    Log.d(getClass().toString(),"Delete_Del - very good!");}
-            }
-
-            @Override
-            public void onFailure(Call<PostCreate> call, Throwable t) {
-                Log.d(getClass().toString(), t.getMessage());
-                Log.d(getClass().toString(),"Delete_Del - ERROR!");
-            }
-        });
-
-
-
-
-    }
-
-}
+package com.example.myappnew;import androidx.appcompat.app.AppCompatActivity;import android.content.Intent;import android.os.Bundle;import android.util.Log;import android.view.View;import androidx.annotation.Nullable;import com.example.myappnew.retrofit2.GetUser;import com.example.myappnew.retrofit2.PostCreate;import com.example.myappnew.retrofit2.PostLoginSuc;import com.example.myappnew.retrofit2.PostRegSuc;import com.example.myappnew.retrofit2.PutUpdate;import com.example.myappnew.retrofit2.RegSuc;import com.google.gson.Gson;import java.util.List;import okhttp3.OkHttpClient;import retrofit2.Call;import retrofit2.Callback;import retrofit2.Response;import retrofit2.Retrofit;import retrofit2.converter.gson.GsonConverterFactory;public class MainActivity extends AppCompatActivity {    private static final String LOG_TAG = "MainActivity.retrofit";    /* для Retrofit - 1 часть*/    private static final String BASE_URL = "https://date.nager.at";    /* для Retrofit - 2 часть*/    private static final String BASE_URL2 = "https://reqres.in";    @Override    protected void onCreate(Bundle savedInstanceState) {        super.onCreate(savedInstanceState);        setContentView(R.layout.activity_main);        initRetrofit();        initRetrofit_2();    }    /*** initRetrofit - 1 ***/    private void initRetrofit() {        OkHttpClient client = new OkHttpClient.Builder()                .build();        Retrofit retrofit = (new Retrofit.Builder())                .client(client)                .baseUrl(BASE_URL)                .addConverterFactory(GsonConverterFactory.create(new Gson()))                .build();        RetrofitService service = retrofit.create(RetrofitService.class);        Thread thread = new Thread(() -> {            service.load("2021", "RU")                    .enqueue(new Callback<List<UsersYear>>() {                        @Override                        public void onResponse(Call<List<UsersYear>> call, Response<List<UsersYear>> response) {                            log(response.body().toString());                        }                        @Override                        public void onFailure(Call<List<UsersYear>> call, Throwable t) {                            log(t.getMessage());                        }                    });        });        thread.start();        try {            thread.join();        } catch (InterruptedException e) {            e.printStackTrace();        }    }    private void log(String mess) {        Log.d(LOG_TAG, mess);    }    //Неделя    public void sendWeek(View view) {        Intent intent = new Intent(this, Activity_week.class);        startActivity(intent);    }    //Календарь    public void sendCalendar(View view) {        Intent intent = new Intent(this, Activity_calendar.class);        startActivity(intent);    }    //Трекер    public void sendTrek(View view) {        Intent intent = new Intent(this, Activity_trek.class);        startActivity(intent);    }    /******************************************     * Ретрофит2 - для теста     * https://reqres.in/     */    private void initRetrofit_2() {        OkHttpClient client = new OkHttpClient.Builder()                .build();        Retrofit retrofit_req = (new Retrofit.Builder())                /* Базовая часть адреса */                .baseUrl(BASE_URL2)                /* Конвертер, необходимый для преобразования в объекты */                .addConverterFactory(GsonConverterFactory.create(new Gson()))                .client(client)                .build();        /*****************         ****RetrofitService2 ***         *  https://reqres.in/api/users?page=2 (Response-200)         * */        RetrofitService2 service1 = retrofit_req.create(RetrofitService2.class);        Thread thread1 = new Thread(() -> {        service1.getUser(2).enqueue(new Callback<GetUser>() {            @Override            public void onResponse(Call<GetUser> call, Response<GetUser> response) {                response.body();                if (response.code() == 200) {                    Log.d(getClass().toString(),"******* GET https://reqres.in/api/users?page=2 (Response-200) *******");                }            }            @Override            public void onFailure(Call<GetUser> call, Throwable t) {                Log.d(getClass().toString(), t.getMessage());                Log.d(getClass().toString(),"GET https://reqres.in/api/users?page=2 - ERROR!");            }        });            /*********************             *** https://reqres.in/api/users?delay=3  (Response-200)             * */            service1.getDelRes(3).enqueue(new Callback<GetUser>() {                @Override                public void onResponse(Call<GetUser> call, Response<GetUser> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* GET https://reqres.in/api/users?delay=3  (Response-200) *******");                    }                }                @Override                public void onFailure(Call<GetUser> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"GET https://reqres.in/api/users?delay=3 - ERROR!");                }            });            /*******************             *** https://reqres.in/api/users/2 (Response-200)              */            service1.getSinUser(2).enqueue(new Callback<GetUser>() {                @Override                public void onResponse(Call<GetUser> call, Response<GetUser> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* GET https://reqres.in/api/users/2 (Response-200) *******");                    }                }                @Override                public void onFailure(Call<GetUser> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"GET https://reqres.in/api/users/2 - ERROR!");                }            });            /*******************             * * https://reqres.in/api/users/23 (Response-404)             **/            service1.getSinUser(23).enqueue(new Callback<GetUser>() {                @Override                public void onResponse(Call<GetUser> call, Response<GetUser> response) {                    response.body();                    if (response.code() == 404) {                        Log.d(getClass().toString(),"******* GET https://reqres.in/api/users/23 (Response-404) *******");                    }                }                @Override                public void onFailure(Call<GetUser> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"GET https://reqres.in/api/users/23 - ERROR!");                }            });            /****************             * POST https://reqres.in/api/users  (Response-201)             * {             *    "name": "morpheus",             *    "job": "leader"             * }             * */            service1.postCreate(new PostCreate("morpheus", "leader")).enqueue(new Callback<PostCreate>() {                @Override                public void onResponse(Call<PostCreate> call, Response<PostCreate> response) {                    response.body();                    if (response.code() == 201) {                        Log.d(getClass().toString(),"******* POST https://reqres.in/api/users  (Response-201) *******");                    }                }                @Override                public void onFailure(Call<PostCreate> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"POST https://reqres.in/api/users - ERROR!");                }            });            /**             * PUT https://reqres.in/api/users/2  (Response-200)             * UPDATE             * {             *    "name": "morpheus",             *    "job": "zion resident"             * }             * */            service1.putUpdate(2, new PostCreate("morpheus", "zion resident")).enqueue(new Callback<PutUpdate>() {                @Override                public void onResponse(Call<PutUpdate> call, Response<PutUpdate> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* PUT https://reqres.in/api/users/2  (Response-200) *******");                    }                }                @Override                public void onFailure(Call<PutUpdate> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"PUT https://reqres.in/api/users/2 - ERROR!");                }            });            /**             * PATCH https://reqres.in/api/users/2 (Response-200)             * UPDATE             * {             *     "name": "morpheus",             *     "job": "zion resident"             * }             */            service1.patchUpdate(2, new PostCreate("morpheus", "zion resident")).enqueue(new Callback<PutUpdate>() {                @Override                public void onResponse(Call<PutUpdate> call, Response<PutUpdate> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* PATCH https://reqres.in/api/users/2 (Response-200) *******");                    }                }                @Override                public void onFailure(Call<PutUpdate> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"PATCH https://reqres.in/api/users/2 - ERROR!");                }            });            /**             * DELETE https://reqres.in/api/users/2 (Response-204)             */            service1.deleteDel(2).enqueue(new Callback<PostCreate>() {                @Override                public void onResponse(Call<PostCreate> call, Response<PostCreate> response) {                    response.body();                    if (response.code() == 204) {                        Log.d(getClass().toString(),"******* DELETE https://reqres.in/api/users/2 (Response-204) *******");                    }                }                @Override                public void onFailure(Call<PostCreate> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"DELETE https://reqres.in/api/users/2 - ERROR!");                }            });            /**             * get https://reqres.in/api/unknown (Response-200)             * LIST <RESOURCE>             * */            service1.getListRes().enqueue(new Callback<GetUser>() {                @Override                public void onResponse(Call<GetUser> call, Response<GetUser> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* GET https://reqres.in/api/unknown (Response-200) *******");                    }                }                @Override                public void onFailure(Call<GetUser> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"GET https://reqres.in/api/unknown - ERROR!");                }            });            /**             * get https://reqres.in/api/unknown/2  (Response-200)             * SINGLE <RESOURCE>             * */            service1.getSingleRes(2).enqueue(new Callback<GetUser>() {                @Override                public void onResponse(Call<GetUser> call, Response<GetUser> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* GET https://reqres.in/api/unknown/2  (Response-200) *******");                    }                }                @Override                public void onFailure(Call<GetUser> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"GET https://reqres.in/api/unknown/2  - ERROR!");                }            });            /*** get https://reqres.in/api/unknown/23 (Response-404)             * SINGLE <RESOURCE> NOT FOUND - Response 404             * */            service1.getSingleRes(23).enqueue(new Callback<GetUser>() {                @Override                public void onResponse(Call<GetUser> call, Response<GetUser> response) {                    response.body();                    if (response.code() == 404) {                        Log.d(getClass().toString(),"******* GET https://reqres.in/api/unknown/23 (Response-404) *******");                    }                }                @Override                public void onFailure(Call<GetUser> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"GET https://reqres.in/api/unknown/23 - ERROR!");                }            });            /**             * POST https://reqres.in/api/register (Response-200)             * REGISTER - SUCCESSFUL             * Response 200             * {             *   "email": "eve.holt@reqres.in",             *   "password": "pistol"             * }             *             * Response 200             * {             *   "id": 4,             *   "token": "QpwL5tke4Pnpja7X4"             * }             * */            service1.postRegSuc(new RegSuc("eve.holt@reqres.in", "pistol")).enqueue(new Callback<PostRegSuc>() {                @Override                public void onResponse(Call<PostRegSuc> call, Response<PostRegSuc> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* POST https://reqres.in/api/register (Response-200) *******");                    }                }                @Override                public void onFailure(Call<PostRegSuc> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"POST https://reqres.in/api/register - ERROR!");                }            });            /***             * POST https://reqres.in/api/register (Response-400)             * REGISTER - UNSUCCESSFUL             * {             *     "email": "sydney@fife"             * }             * */            service1.postRegSuc(new RegSuc("sydney@fife", null)).enqueue(new Callback<PostRegSuc>() {                @Override                public void onResponse(Call<PostRegSuc> call, Response<PostRegSuc> response) {                    response.body();                    if (response.code() == 400) {                        Log.d(getClass().toString(),"******* POST https://reqres.in/api/register (Response-400) *******");                    }                }                @Override                public void onFailure(Call<PostRegSuc> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"POST https://reqres.in/api/register - ERROR!");                }            });            /**             * POST https://reqres.in/api/login (Response-200)             * LOGIN - SUCCESSFUL - Response 200             * {             *   "email": "eve.holt@reqres.in",             *   "password": "cityslicka"             *  }             * */            service1.postLoginSuc(new RegSuc("eve.holt@reqres.in", "cityslicka")).enqueue(new Callback<PostLoginSuc>() {                @Override                public void onResponse(Call<PostLoginSuc> call, Response<PostLoginSuc> response) {                    response.body();                    if (response.code() == 200) {                        Log.d(getClass().toString(),"******* POST https://reqres.in/api/login (Response-200) *******");                    }                }                @Override                public void onFailure(Call<PostLoginSuc> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"POST https://reqres.in/api/login - ERROR!");                }            });            /**             * POST  https://reqres.in/api/login (Response-400)             * LOGIN - UNSUCCESSFUL - Response 400             * {             *     "email": "peter@klaven"             * }             * */            service1.postLoginSuc(new RegSuc("peter@klaven", null)).enqueue(new Callback<PostLoginSuc>() {                @Override                public void onResponse(Call<PostLoginSuc> call, Response<PostLoginSuc> response) {                    response.body();                    if (response.code() == 400) {                        Log.d(getClass().toString(),"******* POST  https://reqres.in/api/login (Response-400) *******");                    }                }                @Override                public void onFailure(Call<PostLoginSuc> call, Throwable t) {                    Log.d(getClass().toString(), t.getMessage());                    Log.d(getClass().toString(),"POST  https://reqres.in/api/login - ERROR!");                }            });        });        thread1.start();        try {            thread1.join();        } catch (InterruptedException e) {            e.printStackTrace();        }    }}

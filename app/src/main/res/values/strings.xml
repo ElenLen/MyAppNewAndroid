@@ -9,5 +9,17 @@
     <string name="column8">ПТ</string>
     <string name="column9">СР</string>
     <string name="column12">СБ</string>
-    <string name="column13">ВС</string>
+    <string name="column14">ВС</string>
+    <string name="week_mn">пн</string>
+    <string name="week_tu">вт</string>
+    <string name="week_w">ср</string>
+    <string name="week_th">чт</string>
+    <string name="week_fr">пт</string>
+    <string name="week_sat">сб</string>
+    <string name="week_su">вс</string>
+    <string name="tr_run">Бег</string>
+    <string name="tr_ler">Учеба</string>
+    <string name="tr_book">Книги</string>
+    <string name="tr_engl">Английский</string>
+    <string name="tr_exer">Тренировка</string>
 </resources>

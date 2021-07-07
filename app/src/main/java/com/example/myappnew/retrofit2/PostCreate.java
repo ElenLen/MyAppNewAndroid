@@ -1,5 +1,7 @@
 package com.example.myappnew.retrofit2;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
 public class PostCreate {
@@ -26,6 +28,7 @@ public class PostCreate {
     private String id;
     private Date createdAt;
 
+    @NotNull
     @Override
     public String toString() {
         return "User{" +
