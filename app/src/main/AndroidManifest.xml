@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myappnew">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -30,9 +31,7 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <activity
-            android:name=".Activity_calendar"
-
+        <activity android:name=".Activity_calendar"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -40,6 +39,13 @@
         </activity>
 
         <activity android:name=".Activity_trek"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".Activity_add"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

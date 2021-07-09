@@ -22,4 +22,10 @@
     <string name="tr_book">Книги</string>
     <string name="tr_engl">Английский</string>
     <string name="tr_exer">Тренировка</string>
+    <string name="x">[X]</string>
+    <string name="date">Date</string>
+    <string name="textDay">TextDay</string>
+    <string name="add">Add</string>
+    <string name="base">БД</string>
+    <string name="save">Save</string>
 </resources>

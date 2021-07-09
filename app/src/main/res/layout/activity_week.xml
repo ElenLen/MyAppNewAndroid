@@ -28,7 +28,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/text_m"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -42,7 +42,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/week_m"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/textView3"
+                android:id="@+id/week_th"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:layout_weight="1"
@@ -62,7 +62,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/text_th"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/grayscale"
@@ -81,7 +81,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/text_tu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grayscale"
@@ -93,7 +93,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/textView6"
+                android:id="@+id/week_tu"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:background="@android:drawable/btn_default_small"
@@ -102,7 +102,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/textView7"
+                android:id="@+id/week_fr"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:background="@android:drawable/btn_default_small"
@@ -111,7 +111,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/text_fr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/grayscale"
@@ -130,7 +130,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/text_wed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grayscale"
@@ -141,7 +141,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/textView10"
+                android:id="@+id/week_wed"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:background="@android:drawable/btn_default_small"
@@ -150,7 +150,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/textView11"
+                android:id="@+id/week_sat"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:background="@android:drawable/btn_default_small"
@@ -159,7 +159,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/text_sat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grayscale"
@@ -178,7 +178,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/text_sun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grayscale"
@@ -189,7 +189,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/textView13"
+                android:id="@+id/week_sun"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
                 android:layout_span="2"
@@ -199,7 +199,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/text_sun1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grayscale"

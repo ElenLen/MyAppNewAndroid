@@ -1,9 +1,7 @@
 package com.example.myappnew;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.TableLayout;
 
 public class Activity_week extends AppCompatActivity {
 
