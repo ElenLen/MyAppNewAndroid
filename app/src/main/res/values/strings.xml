@@ -28,4 +28,7 @@
     <string name="add">Add</string>
     <string name="base">БД</string>
     <string name="save">Save</string>
+    <string name="exampleString">exampleString</string>
+    <string name="vew">Custom Views</string>
+    <string name="hello_custom_views">Hello Custom Views</string>
 </resources>

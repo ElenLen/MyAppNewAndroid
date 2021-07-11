@@ -11,5 +11,16 @@
     <color name="gray_3">#828282</color>
     <color name="grayscale">#EFF0F6</color>
     <color name="yellow">#ffb700</color>
-    <color name="red">#C81337</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="red">#e53935</color>
+    <color name="light_grey">#AAAAAA</color>
+    <color name="dark_grey">#555555</color>
+
 </resources>
