@@ -18,14 +18,6 @@ import com.example.myappnew.R;
 
 
 public class EmotionalFaceView extends View {
-  //  private String mExampleString; // TODO: use a default from R.string...
- //   private int mExampleColor = Color.RED; // TODO: use a default from R.color...
- //   private float mExampleDimension = 0; // TODO: use a default from R.dimen...
-  //  private Drawable mExampleDrawable;
-
- //   private TextPaint mTextPaint;
- //   private float mTextWidth;
- //   private float mTextHeight;
 
     protected float customRadius;
     protected int roundRadius;
@@ -52,11 +44,11 @@ public class EmotionalFaceView extends View {
     public static final long HAPPY =  0;
     public static final long SAD = 1;
 
-    long happinessState = SAD;
-    public void setHappinessState(long happinessState) {
+    long happinessState = HAPPY;
+ /*   public void setHappinessState(long happinessState) {
         this.happinessState = happinessState;
         invalidate();
-    }
+    }*/
 
     public EmotionalFaceView(Context context) {
         super(context);
@@ -157,10 +149,10 @@ public class EmotionalFaceView extends View {
             // Happy mouth path
             mouthPath.quadTo(size * 0.5f, size * 0.80f, size * 0.78f, size * 0.7f);
             mouthPath.quadTo(size * 0.5f, size * 0.90f, size * 0.22f, size * 0.7f);
-    //    } else {
+        } else {
             // Sad mouth path
-    //        mouthPath.quadTo(size * 0.5f, size * 0.50f, size * 0.78f, size * 0.7f);
-    //        mouthPath.quadTo(size * 0.5f, size * 0.60f, size * 0.22f, size * 0.7f);
+            mouthPath.quadTo(size * 0.5f, size * 0.50f, size * 0.78f, size * 0.7f);
+            mouthPath.quadTo(size * 0.5f, size * 0.60f, size * 0.22f, size * 0.7f);
         }
 
         paint.setColor(mouthColor);
